@@ -12,6 +12,14 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    func applicationDidFinishLaunching(_ application: UIApplication) {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        let mainVC = MainViewController()
+        window?.rootViewController = UINavigationController(rootViewController: mainVC)
+    }
 }
+
 
