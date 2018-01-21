@@ -9,10 +9,9 @@
 import UIKit
 import CoreLocation
 
-struct SatResource<A> {
+struct SatResource {
     let url:URL
-   // let coordinate: CLLocationCoordinate2D
-    let parse: (Data) -> A?
+    let parse: (Data) -> Data?
 }
 
 class MainViewController: UIViewController {
@@ -80,20 +79,20 @@ class MainViewController: UIViewController {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         
-//        if CLLocationManager.locationServicesEnabled() {
-//            if CLLocationManager.authorizationStatus() == .denied || CLLocationManager.authorizationStatus() == .restricted {
-//                print("*** Location Services Denied ***")
-//            } else if CLLocationManager.authorizationStatus() == .notDetermined {
-//
-//                locationManager.requestWhenInUseAuthorization()
-//
-//            } else if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-//                print("*** Okay Good to go. ***")
-//                locationManager.requestLocation()
-//            }
-//        } else {
-//            print("Location services NOT enabled.")
-//        }
+        //        if CLLocationManager.locationServicesEnabled() {
+        //            if CLLocationManager.authorizationStatus() == .denied || CLLocationManager.authorizationStatus() == .restricted {
+        //                print("*** Location Services Denied ***")
+        //            } else if CLLocationManager.authorizationStatus() == .notDetermined {
+        //
+        //                locationManager.requestWhenInUseAuthorization()
+        //
+        //            } else if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+        //                print("*** Okay Good to go. ***")
+        //                locationManager.requestLocation()
+        //            }
+        //        } else {
+        //            print("Location services NOT enabled.")
+        //        }
         
         doSomething()
         
@@ -102,26 +101,22 @@ class MainViewController: UIViewController {
     // -----------------------------------------------------------------------------------------------------
     
     func doSomething() {
-  
+        
         // http://api.open-notify.org/iss-pass.json?lat=37.332331410000002&lon=37.332331410000002
         
         let url = URL(string: "http://api.open-notify.org/iss-pass.json?lat=37.332331410000002&lon=37.332331410000002")
-        let satelliteResource = SatResource<Data>(url: url!) { (data) -> Data? in
+        
+        let satelliteResource = SatResource(url: url!) {(data) -> Data? in
             print("...this is where you parse the data. ****")
             return data
         }
         
         SatelliteService().load(resource: satelliteResource) {result in
             
-            guard result != nil else {
-                print("Sorry, no data retrieved.")
-                return
+            if result != nil {
+                let deserialised = try? JSONSerialization.jsonObject(with: result!, options: [])
+                print(deserialised)
             }
-           // let stringData = NSString(data: result!, encoding: String.Encoding.utf8.rawValue)
-        
-            print("Here's the Result:")
-          //  print(stringData!)
-        
         }
     }
     

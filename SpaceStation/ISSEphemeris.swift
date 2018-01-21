@@ -9,10 +9,10 @@
 import Foundation
 
 final class SatelliteService {
-    final func load<A>(resource: SatResource<A>, completion: @escaping (A?) -> Void) {
-        URLSession.shared.dataTask(with: resource.url) { (data, response, error) in
+    final func load(resource: SatResource, completion: @escaping (Data?) -> Void) {
+        URLSession.shared.dataTask(with: resource.url) { (data, _, error) in
             if let data = data {
-                completion(resource.parse(data))
+                completion(data)
             } else {
                 completion(nil)
             }
