@@ -74,53 +74,34 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        buildUserInterface()
         self.title = "Space Station"
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-        
-        //        if CLLocationManager.locationServicesEnabled() {
-        //            if CLLocationManager.authorizationStatus() == .denied || CLLocationManager.authorizationStatus() == .restricted {
-        //                print("*** Location Services Denied ***")
-        //            } else if CLLocationManager.authorizationStatus() == .notDetermined {
-        //
-        //                locationManager.requestWhenInUseAuthorization()
-        //
-        //            } else if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-        //                print("*** Okay Good to go. ***")
-        //                locationManager.requestLocation()
-        //            }
-        //        } else {
-        //            print("Location services NOT enabled.")
-        //        }
-        
+        buildUserInterface()
         getSatelliteData()
-        
     }
     
     // -----------------------------------------------------------------------------------------------------
     
-//    DispatchQueue.main.async(execute: {
-//    let title = "Unable to Access Satellite Data"
-//    let msg = error.localizedDescription
-//    let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-//    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: nil))
-//    self.present(alert, animated: true, completion: nil)
-//    })
-    
     func getSatelliteData() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         let lat = locationCoordinate.latitude; let lon = locationCoordinate.longitude
         let satelliteURIString = "http://api.open-notify.org/iss-pass.json?lat=\(lat)&lon=\(lon)"
         let url = URL(string:satelliteURIString)
         
         let satelliteResource = SatResource(url: url!) {(data) -> Data? in
-            print("...this is where you parse the data. ****")
             return data
         }
         
         SatelliteService().load(resource: satelliteResource) {result in
-            if result != nil {
-                if let deserialised = try? JSONSerialization.jsonObject(with: result!, options: []) {
+            if let errorDescription = result as? String {
+                DispatchQueue.main.async(execute: {
+                    let title = "Unable to Access Satellite Data"
+                    let alert = UIAlertController(title: title, message: errorDescription, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                })
+            } else if let result = result as? Data {
+                if let deserialised = try? JSONSerialization.jsonObject(with: result, options: []) {
                     print(deserialised)
                 }
             }
