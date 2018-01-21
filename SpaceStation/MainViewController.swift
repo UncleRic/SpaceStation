@@ -114,8 +114,9 @@ class MainViewController: UIViewController {
         SatelliteService().load(resource: satelliteResource) {result in
             
             if result != nil {
-                let deserialised = try? JSONSerialization.jsonObject(with: result!, options: [])
-                print(deserialised)
+                if let deserialised = try? JSONSerialization.jsonObject(with: result!, options: []) {
+                    print(deserialised)
+                }
             }
         }
     }
