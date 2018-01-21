@@ -61,11 +61,11 @@
 				18EC8236201412C4006FB42E /* ReadMe.rtf */,
 				18A85D1A2013F494003AD847 /* AppDelegate.swift */,
 				18A85D1C2013F494003AD847 /* MainViewController.swift */,
+				18EC8238201414ED006FB42E /* ISSEphemeris.swift */,
+				18A85D2E2013F85E003AD847 /* Extensions.swift */,
 				18A85D212013F494003AD847 /* Assets.xcassets */,
 				18A85D232013F494003AD847 /* LaunchScreen.storyboard */,
-				18A85D2E2013F85E003AD847 /* Extensions.swift */,
 				18A85D262013F494003AD847 /* Info.plist */,
-				18EC8238201414ED006FB42E /* ISSEphemeris.swift */,
 			);
 			path = SpaceStation;
 			sourceTree = "<group>";
