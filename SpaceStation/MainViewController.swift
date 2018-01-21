@@ -9,6 +9,15 @@
 import UIKit
 import CoreLocation
 
+struct ResponseObject: Codable {
+    let data: [SatelliteItem]
+}
+
+struct SatelliteItem: Codable {
+    let duration: Int
+    let riseTime: Int
+}
+
 struct SatResource {
     let url:URL
     let parse: (Data) -> Data?
@@ -101,10 +110,8 @@ class MainViewController: UIViewController {
                     alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 })
-            } else if let result = result as? Data {
-                if let deserialised = try? JSONSerialization.jsonObject(with: result, options: []) {
-                    print(deserialised)
-                }
+            } else if let jsonData = result as? Data {
+                self.disseminateJSON(data: jsonData)
             }
         }
     }
