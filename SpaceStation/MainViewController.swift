@@ -94,17 +94,24 @@ class MainViewController: UIViewController {
         //            print("Location services NOT enabled.")
         //        }
         
-        doSomething()
+        getSatelliteData()
         
     }
     
     // -----------------------------------------------------------------------------------------------------
     
-    func doSomething() {
-        
-        // http://api.open-notify.org/iss-pass.json?lat=37.332331410000002&lon=37.332331410000002
-        
-        let url = URL(string: "http://api.open-notify.org/iss-pass.json?lat=37.332331410000002&lon=37.332331410000002")
+//    DispatchQueue.main.async(execute: {
+//    let title = "Unable to Access Satellite Data"
+//    let msg = error.localizedDescription
+//    let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+//    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: nil))
+//    self.present(alert, animated: true, completion: nil)
+//    })
+    
+    func getSatelliteData() {
+        let lat = locationCoordinate.latitude; let lon = locationCoordinate.longitude
+        let satelliteURIString = "http://api.open-notify.org/iss-pass.json?lat=\(lat)&lon=\(lon)"
+        let url = URL(string:satelliteURIString)
         
         let satelliteResource = SatResource(url: url!) {(data) -> Data? in
             print("...this is where you parse the data. ****")
@@ -112,7 +119,6 @@ class MainViewController: UIViewController {
         }
         
         SatelliteService().load(resource: satelliteResource) {result in
-            
             if result != nil {
                 if let deserialised = try? JSONSerialization.jsonObject(with: result!, options: []) {
                     print(deserialised)
