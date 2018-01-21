@@ -74,16 +74,17 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        locationManager.requestLocation()
         self.title = "Space Station"
         buildUserInterface()
-        getSatelliteData()
     }
     
     // -----------------------------------------------------------------------------------------------------
     
     func getSatelliteData() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+       
         let lat = locationCoordinate.latitude; let lon = locationCoordinate.longitude
         let satelliteURIString = "http://api.open-notify.org/iss-pass.json?lat=\(lat)&lon=\(lon)"
         let url = URL(string:satelliteURIString)
@@ -125,6 +126,7 @@ class MainViewController: UIViewController {
 // ===================================================================================================
 
 extension MainViewController: CLLocationManagerDelegate {
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedWhenInUse {
             locationManager.startUpdatingLocation()
@@ -147,6 +149,7 @@ extension MainViewController: CLLocationManagerDelegate {
         }
         if let myLocation = locations.first?.coordinate {
             locationCoordinate = myLocation
+            getSatelliteData()
         }
     }
 }
