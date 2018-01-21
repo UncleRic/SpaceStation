@@ -9,7 +9,7 @@
 import UIKit
 import CoreLocation
 
-class MainViewController: UIViewController, CLLocationManagerDelegate {
+class MainViewController: UIViewController {
     let titleLabel:UILabel = {
         var label = UILabel()
         label.text = "My Project"
@@ -62,12 +62,33 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     var locationManager = CLLocationManager()
+    var locationCoordinate = CLLocationCoordinate2D()
+    
+    // -----------------------------------------------------------------------------------------------------
+    // MARK: - UIViewController methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         buildUserInterface()
         self.title = "Space Station"
         locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+        
+        if CLLocationManager.locationServicesEnabled() {
+            if CLLocationManager.authorizationStatus() == .denied || CLLocationManager.authorizationStatus() == .restricted {
+                print("*** Location Services Denied ***")
+            } else if CLLocationManager.authorizationStatus() == .notDetermined {
+                
+                locationManager.requestWhenInUseAuthorization()
+                
+            } else if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+                print("*** Okay Good to go. ***")
+                locationManager.requestLocation()
+            }
+        } else {
+            print("Location services NOT enabled.")
+        }
+        
     }
     
     // -----------------------------------------------------------------------------------------------------
@@ -83,4 +104,46 @@ class MainViewController: UIViewController, CLLocationManagerDelegate {
         print("Toolbar item handler.")
     }
 }
+
+// ===================================================================================================
+
+extension MainViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    // -----------------------------------------------------------------------------------------------------
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("*** Location Failure ***")
+    }
+    
+    // -----------------------------------------------------------------------------------------------------
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        manager.stopUpdatingLocation()
+        guard locations.count > 0 else {
+            print("*** Sorry, No Location Found ***")
+            return
+        }
+        if let myLocation = locations.first?.coordinate {
+            locationCoordinate = myLocation
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
