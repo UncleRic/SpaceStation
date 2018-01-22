@@ -140,6 +140,7 @@ extension MainViewController {
     // -----------------------------------------------------------------------------------------------------
     
     func populateRequestFields() {
+        gSpinner.stopAnimating()
         if let alt = issRequest["altitude"] {
             altitudeLabel.text = "Altitude: \(alt) meters."
         }

@@ -26,7 +26,7 @@ struct SatResource {
 }
 
 class MainViewController: UIViewController {
-    
+    let gSpinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
     var issTuple = (request:[String:Double], response:[Response]).self
     var issRequest = [String:Double]()
     var issResponse = [Response]()
@@ -135,6 +135,11 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        gSpinner.color = UIColor.purple
+        gSpinner.center = self.view.center
+        self.view.addSubview(gSpinner)
+        gSpinner.startAnimating()
         dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm:ss")
         
         locationManager.delegate = self
@@ -225,7 +230,8 @@ extension MainViewController: CLLocationManagerDelegate {
     // -----------------------------------------------------------------------------------------------------
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        let title = "Unable to Access Satellite Data"
+        gSpinner.stopAnimating()
+        let title = "Location Manager Error"
         let alert = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -235,6 +241,7 @@ extension MainViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         manager.stopUpdatingLocation()
+        gSpinner.stopAnimating()
         guard locations.count > 0 else {
             let title = "Sorry, No Location Found"
             let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
