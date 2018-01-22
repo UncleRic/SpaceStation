@@ -168,6 +168,7 @@ extension MainViewController {
             passesLabel.text = "Passes: \(Int(passes))"
         }
         
+        tableView.reloadData()
     }
 }
 
