@@ -91,12 +91,17 @@ class MainViewController: UIViewController {
         return label
     }()
     
+    // Tableview:
     let tableView: UITableView = {
         let table = UITableView()
-        table.backgroundColor = UIColor.red
+        table.scrollsToTop = false
+        table.bounces = false
+        table.isScrollEnabled = false
+        table.backgroundColor = UIColor.clear
         return table
     }()
     
+    // Toolbar:
     let toolBar:UIToolbar = {
         var toolbar = UIToolbar()
         var items = [UIBarButtonItem]()
@@ -125,7 +130,7 @@ class MainViewController: UIViewController {
         self.title = "Space Station"
         buildUserInterface()
         tableView.dataSource = self
-        tableView.rowHeight = 80.0
+        tableView.rowHeight = 62.0
         let myNib = UINib(nibName:"TableViewCell",bundle:nil)
         tableView.register(myNib, forCellReuseIdentifier:cellID)
     }
@@ -183,7 +188,8 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for:indexPath) as! ISSCell
-        // do something
+        cell.duration.text = "Duration"
+        cell.riseTime.text = "Rise Time"
         return cell
     }
 }

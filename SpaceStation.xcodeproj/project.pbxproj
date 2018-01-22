@@ -36,7 +36,7 @@
 		18337152201525F50067F275 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		183371582015655C0067F275 /* UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UI.swift; sourceTree = "<group>"; };
 		183745A72015924E000CFBDC /* ISSCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISSCell.swift; sourceTree = "<group>"; };
-		183745A92015A6AC000CFBDC /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = TableViewCell.xib; path = SpaceStation/TableViewCell.xib; sourceTree = "<group>"; };
+		183745A92015A6AC000CFBDC /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		18A85D172013F494003AD847 /* SpaceStation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceStation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A85D1A2013F494003AD847 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18A85D1C2013F494003AD847 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -78,7 +78,6 @@
 		18A85D0E2013F493003AD847 = {
 			isa = PBXGroup;
 			children = (
-				183745A92015A6AC000CFBDC /* TableViewCell.xib */,
 				18A85D192013F494003AD847 /* SpaceStation */,
 				1833714F201525F50067F275 /* SpaceStationTests */,
 				18A85D182013F494003AD847 /* Products */,
@@ -100,10 +99,11 @@
 				18EC8236201412C4006FB42E /* ReadMe.rtf */,
 				18A85D1A2013F494003AD847 /* AppDelegate.swift */,
 				18A85D1C2013F494003AD847 /* MainViewController.swift */,
-				183745A72015924E000CFBDC /* ISSCell.swift */,
 				183371582015655C0067F275 /* UI.swift */,
-				18EC8238201414ED006FB42E /* ISSEphemeris.swift */,
 				18A85D2E2013F85E003AD847 /* Extensions.swift */,
+				183745A72015924E000CFBDC /* ISSCell.swift */,
+				183745A92015A6AC000CFBDC /* TableViewCell.xib */,
+				18EC8238201414ED006FB42E /* ISSEphemeris.swift */,
 				18A85D212013F494003AD847 /* Assets.xcassets */,
 				18A85D232013F494003AD847 /* LaunchScreen.storyboard */,
 				18A85D262013F494003AD847 /* Info.plist */,

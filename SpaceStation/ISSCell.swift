@@ -9,7 +9,8 @@
 import UIKit
 
 class ISSCell: UITableViewCell {
-
+    @IBOutlet var duration: UILabel!
+    @IBOutlet var riseTime: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
