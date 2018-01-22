@@ -93,6 +93,19 @@ extension MainViewController {
                            paddingBottom: 10,
                            paddingRight: 10, width: 200.0, height: 24)
         
+        // Ephemeris Label:
+        view.addSubview(ephemerisLabel)
+        ephemerisLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                            bottom: nil,
+                            left: view.safeAreaLayoutGuide.leftAnchor,
+                            right: nil,
+                            centerYAnchor: nil,
+                            centerXAnchor: nil,
+                            paddingTop: requestTopPadding + 140,
+                            paddingLeft: requestLeftPadding + 20,
+                            paddingBottom: 10,
+                            paddingRight: 10, width: 200.0, height: 24)
+        
         // UITableView:
         view.addSubview(tableView)
         tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
@@ -101,10 +114,10 @@ extension MainViewController {
                            right: view.safeAreaLayoutGuide.rightAnchor,
                            centerYAnchor: nil,
                            centerXAnchor: nil,
-                           paddingTop: requestTopPadding + 150,
-                           paddingLeft: requestLeftPadding ,
-                           paddingBottom: -150,
-                           paddingRight: 0, width: 0.0, height: 0.0)
+                           paddingTop: requestTopPadding + 170,
+                           paddingLeft: requestLeftPadding + 40,
+                           paddingBottom: -140,
+                           paddingRight: -20, width: 0.0, height: 0.0)
         
        
         // Toolbar Label:

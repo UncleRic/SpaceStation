@@ -91,6 +91,16 @@ class MainViewController: UIViewController {
         return label
     }()
     
+    // Tabeview title:
+    let ephemerisLabel:UILabel = {
+        var label = UILabel()
+        label.text = "ISS Ephemeris:"
+        label.textColor = UIColor.purple
+        label.font = UIFont(name: palatinoFont, size: 18.0)
+        label.textAlignment = .left
+        return label
+    }()
+    
     // Tableview:
     let tableView: UITableView = {
         let table = UITableView()
@@ -130,7 +140,9 @@ class MainViewController: UIViewController {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         locationManager.requestLocation()
-        self.title = "Space Station"
+        
+        self.title = "International Space Station Pass Times"
+        
         buildUserInterface()
         tableView.dataSource = self
         tableView.rowHeight = 62.0
@@ -213,7 +225,10 @@ extension MainViewController: CLLocationManagerDelegate {
     // -----------------------------------------------------------------------------------------------------
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("*** Location Failure ***")
+        let title = "Unable to Access Satellite Data"
+        let alert = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     // -----------------------------------------------------------------------------------------------------
@@ -221,7 +236,10 @@ extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         manager.stopUpdatingLocation()
         guard locations.count > 0 else {
-            print("*** Sorry, No Location Found ***")
+            let title = "Sorry, No Location Found"
+            let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             return
         }
         if let myLocation = locations.first?.coordinate {

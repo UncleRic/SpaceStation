@@ -7,15 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
 final class SatelliteService {
     final func load(resource: SatResource, completion: @escaping (Any?) -> Void) {
         URLSession.shared.dataTask(with: resource.url) { (data, _, error) in
             if let error = error {
-                print(error.localizedDescription)
                completion(error.localizedDescription)
-            }
-            if let data = data {
+            } else if let data = data {
                 completion(data)
             } else {
                 completion(nil)
@@ -55,17 +54,11 @@ extension MainViewController {
             issFlightArray = issFlight.response
             requestArray = issFlight.request
             
-            for item in requestArray {
-                print(item)
-            }
-            print("------------------")
-            
-            for item in issFlightArray {
-                print("item.duration: \(item.duration); item.risetime: \(item.risetime)")
-            }
-            
         } catch let error as NSError {
-            print("\(error)") //Error Domain=Swift.DecodingError Code=2 "(null)"
+            let title = "JSON Dissemination Error"
+            let alert = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
         return (requestArray, issFlightArray)
     }
