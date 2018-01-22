@@ -9,6 +9,8 @@
 import UIKit
 import CoreLocation
 
+let palatinoFont = "Palatino"
+
 struct ResponseObject: Codable {
     let data: [SatelliteItem]
 }
@@ -29,12 +31,57 @@ class MainViewController: UIViewController {
     var issRequest = [String:Double]()
     var issResponse = [Response]()
     
-    let titleLabel:UILabel = {
+    let requestLabel:UILabel = {
         var label = UILabel()
-        label.text = "My Project"
+        label.text = "Request:"
         label.textColor = UIColor.purple
-        label.font = UIFont(name: "Space Station", size: 23.0)
+        label.font = UIFont(name: palatinoFont, size: 18.0)
         label.textAlignment = .center
+        return label
+    }()
+    
+    let altitudeLabel:UILabel = {
+        var label = UILabel()
+        label.text = "Altitude:"
+        label.textColor = UIColor.purple
+        label.font = UIFont(name: palatinoFont, size: 14.0)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    let datetimeLabel:UILabel = {
+        var label = UILabel()
+        label.text = "Date & Time:"
+        label.textColor = UIColor.purple
+        label.font = UIFont(name: palatinoFont, size: 14.0)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    let latitudeLabel:UILabel = {
+        var label = UILabel()
+        label.text = "Latitude:"
+        label.textColor = UIColor.purple
+        label.font = UIFont(name: palatinoFont, size: 14.0)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    let longitude:UILabel = {
+        var label = UILabel()
+        label.text = "Latitude:"
+        label.textColor = UIColor.purple
+        label.font = UIFont(name: palatinoFont, size: 14.0)
+        label.textAlignment = .left
+        return label
+    }()
+    
+    let passesLabel:UILabel = {
+        var label = UILabel()
+        label.text = "Longitude:"
+        label.textColor = UIColor.purple
+        label.font = UIFont(name: palatinoFont, size: 14.0)
+        label.textAlignment = .left
         return label
     }()
     
@@ -50,35 +97,6 @@ class MainViewController: UIViewController {
         toolbar.items = items
         return toolbar
     }()
-    
-    func buildUserInterface() {
-        view.addSubview(titleLabel)
-        titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                          bottom: nil,
-                          left: nil,
-                          right: nil,
-                          centerYAnchor: nil,
-                          centerXAnchor: view.safeAreaLayoutGuide.centerXAnchor,
-                          paddingTop: -130,
-                          paddingLeft: 10,
-                          paddingBottom: 10,
-                          paddingRight: 10, width: 100.0, height: 320)
-        
-        view.addSubview(toolBar)
-        toolBar.anchor(top: nil,
-                       bottom: view.safeAreaLayoutGuide.bottomAnchor,
-                       left: view.safeAreaLayoutGuide.leftAnchor,
-                       right: view.safeAreaLayoutGuide.rightAnchor,
-                       centerYAnchor: nil,
-                       centerXAnchor: nil,
-                       paddingTop: 0,
-                       paddingLeft: 0,
-                       paddingBottom: 0,
-                       paddingRight: 0,
-                       width: 0)
-        
-        view.backgroundColor = UIColor.skyBlue()
-    }
     
     var locationManager = CLLocationManager()
     var locationCoordinate = CLLocationCoordinate2D()
