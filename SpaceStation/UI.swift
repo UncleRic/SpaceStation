@@ -39,7 +39,7 @@ extension MainViewController {
                              paddingTop: requestTopPadding + 20,
                              paddingLeft: requestLeftPadding + 40,
                              paddingBottom: 10,
-                             paddingRight: 10, width: 100.0, height: 24)
+                             paddingRight: 10, width: 200.0, height: 24)
         
         // Date & Time Label:
         view.addSubview(dateTimeLabel)
@@ -65,7 +65,7 @@ extension MainViewController {
                              paddingTop: requestTopPadding + 60,
                              paddingLeft: requestLeftPadding + 40,
                              paddingBottom: 10,
-                             paddingRight: 10, width: 60.0, height: 24)
+                             paddingRight: 10, width: 200.0, height: 24)
         
         // Longitude Label:
         view.addSubview(longitudeLabel)
@@ -78,7 +78,7 @@ extension MainViewController {
                               paddingTop: requestTopPadding + 80,
                               paddingLeft: requestLeftPadding + 40,
                               paddingBottom: 10,
-                              paddingRight: 10, width: 60.0, height: 24)
+                              paddingRight: 10, width: 200.0, height: 24)
         
         // Passes Label:
         view.addSubview(passesLabel)
@@ -91,7 +91,7 @@ extension MainViewController {
                            paddingTop: requestTopPadding + 100,
                            paddingLeft: requestLeftPadding + 40,
                            paddingBottom: 10,
-                           paddingRight: 10, width: 50.0, height: 24)
+                           paddingRight: 10, width: 200.0, height: 24)
         
         // Toolbar Label:
         view.addSubview(toolBar)
@@ -114,13 +114,37 @@ extension MainViewController {
     
     func populateDataFields() {
         if let alt = issRequest["altitude"] {
-            altitudeLabel.text = "Altitude: \(alt)"
+            altitudeLabel.text = "Altitude: \(alt) meters."
         }
         
         if let datetime = issRequest["datetime"] {
+            let localTime = datetime
             dateTimeLabel.text = "Date & Time: \(datetime)"
         }
         
+        if let latitude = issRequest["latitude"] {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.minimumFractionDigits = 1
+            numberFormatter.maximumFractionDigits = 2
+        
+            if let lat = numberFormatter.string(from: NSNumber(value:latitude)) {
+                latitudeLabel.text = "Latitude: \(lat) degrees"
+            }
+        }
+        
+        if let longitude = issRequest["longitude"] {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.minimumFractionDigits = 1
+            numberFormatter.maximumFractionDigits = 2
+            
+            if let long = numberFormatter.string(from: NSNumber(value:longitude)) {
+                longitudeLabel.text = "Latitude: \(long) degrees"
+            }
+        }
+        
+        if let passes = issRequest["passes"] {
+            passesLabel.text = "Passes: \(Int(passes))"
+        }
         
     }
 }
