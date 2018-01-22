@@ -16,11 +16,29 @@ extension Int {
     }
 }
 
+// ===================================================================================================
+
+extension Double {
+    func timeStamp() -> String {
+        let date = Date(timeIntervalSince1970: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.medium //Set time style
+        dateFormatter.dateStyle = DateFormatter.Style.medium //Set date style
+        dateFormatter.timeZone = TimeZone.current
+        let localDate = dateFormatter.string(from: date)
+        return localDate
+    }
+}
+
+// ===================================================================================================
+
 extension UIColor {
     class func skyBlue() -> UIColor {
         return UIColor(red: 0.51, green: 0.784, blue: 0.878, alpha: 1.0)
     }
 }
+
+// ===================================================================================================
 
 extension UIView {
     func anchor(top: NSLayoutYAxisAnchor?, bottom: NSLayoutYAxisAnchor?,

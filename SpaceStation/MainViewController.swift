@@ -17,7 +17,7 @@ struct ResponseObject: Codable {
 
 struct SatelliteItem: Codable {
     let duration: Int
-    let riseTime: Int
+    let riseTime: Double
 }
 
 struct SatResource {
@@ -193,8 +193,8 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for:indexPath) as! ISSCell
-        cell.duration.text = issResponse[indexPath.row].duration.duration()
-        cell.riseTime.text = String(issResponse[indexPath.row].risetime)
+        cell.duration.text = "Duration: \(issResponse[indexPath.row].duration.duration())"
+        cell.riseTime.text = "Rise Time: \(issResponse[indexPath.row].risetime.timeStamp())"
         return cell
     }
 }

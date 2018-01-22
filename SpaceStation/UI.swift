@@ -131,11 +131,6 @@ extension MainViewController {
             altitudeLabel.text = "Altitude: \(alt) meters."
         }
         
-        if let datetime = issRequest["datetime"] {
-            let localTime = datetime
-            dateTimeLabel.text = "Date & Time: \(datetime)"
-        }
-        
         if let latitude = issRequest["latitude"] {
             let numberFormatter = NumberFormatter()
             numberFormatter.minimumFractionDigits = 1
