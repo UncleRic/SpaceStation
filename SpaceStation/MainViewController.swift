@@ -111,7 +111,8 @@ class MainViewController: UIViewController {
                     self.present(alert, animated: true, completion: nil)
                 })
             } else if let jsonData = result as? Data {
-                self.disseminateJSON(data: jsonData)
+                let issTuple = self.disseminateJSON(data: jsonData)
+                print(issTuple)
             }
         }
     }

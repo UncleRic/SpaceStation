@@ -28,12 +28,12 @@ final class SatelliteService {
 
 extension MainViewController {
     
-    public struct response: Codable {
+    public struct Response: Codable {
         let duration : Int
         let risetime : Double
     }
     
-    public struct request: Codable {
+    public struct Request: Codable {
         let altitude: Int
         let datetime : Double
         let latitude : Double
@@ -43,29 +43,31 @@ extension MainViewController {
     
     public struct DataListModel: Codable {
         let request : [String:Double]
-        let response : [response]
+        let response : [Response]
     }
     
-    func disseminateJSON(data: Data) {
+    func disseminateJSON(data: Data) -> (request:[String:Double], response:[Response]) {
+        var issFlightArray = [Response]()
+        var requestArray = [String:Double]()
         do {
-            let ssbFlight = try JSONDecoder().decode(DataListModel.self, from: data)
+            let issFlight = try JSONDecoder().decode(DataListModel.self, from: data)
             
-            let modelArray = ssbFlight.response
-            let requestArray = ssbFlight.request
+            issFlightArray = issFlight.response
+            requestArray = issFlight.request
             
             for item in requestArray {
                 print(item)
             }
             print("------------------")
             
-            for item in modelArray {
+            for item in issFlightArray {
                 print("item.duration: \(item.duration); item.risetime: \(item.risetime)")
             }
             
         } catch let error as NSError {
             print("\(error)") //Error Domain=Swift.DecodingError Code=2 "(null)"
         }
-
+        return (requestArray, issFlightArray)
     }
 }
 
