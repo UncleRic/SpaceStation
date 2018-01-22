@@ -24,6 +24,11 @@ struct SatResource {
 }
 
 class MainViewController: UIViewController {
+    
+    var issTuple = (request:[String:Double], response:[Response]).self
+    var issRequest = [String:Double]()
+    var issResponse = [Response]()
+    
     let titleLabel:UILabel = {
         var label = UILabel()
         label.text = "My Project"
@@ -93,7 +98,7 @@ class MainViewController: UIViewController {
     // -----------------------------------------------------------------------------------------------------
     
     func getSatelliteData() {
-       
+        
         let lat = locationCoordinate.latitude; let lon = locationCoordinate.longitude
         let satelliteURIString = "http://api.open-notify.org/iss-pass.json?lat=\(lat)&lon=\(lon)"
         let url = URL(string:satelliteURIString)
@@ -103,17 +108,19 @@ class MainViewController: UIViewController {
         }
         
         SatelliteService().load(resource: satelliteResource) {result in
-            if let errorDescription = result as? String {
-                DispatchQueue.main.async(execute: {
+            DispatchQueue.main.async(execute: {
+                if let errorDescription = result as? String {
                     let title = "Unable to Access Satellite Data"
                     let alert = UIAlertController(title: title, message: errorDescription, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .`default`, handler: nil))
                     self.present(alert, animated: true, completion: nil)
-                })
-            } else if let jsonData = result as? Data {
-                let issTuple = self.disseminateJSON(data: jsonData)
-                print(issTuple)
-            }
+                    
+                } else if let jsonData = result as? Data {
+                    let issTuple = self.disseminateJSON(data: jsonData)
+                    self.issRequest = issTuple.request
+                    self.issResponse = issTuple.response
+                }
+            })
         }
     }
     
