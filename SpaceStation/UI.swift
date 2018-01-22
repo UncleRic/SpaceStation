@@ -126,7 +126,7 @@ extension MainViewController {
     
     // -----------------------------------------------------------------------------------------------------
     
-    func populateDataFields() {
+    func populateRequestFields() {
         if let alt = issRequest["altitude"] {
             altitudeLabel.text = "Altitude: \(alt) meters."
         }

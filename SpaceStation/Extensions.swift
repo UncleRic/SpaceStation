@@ -8,6 +8,14 @@
 
 import UIKit
 
+extension Int {
+    func duration() -> String {
+        let hours = self/60
+        let minutes = self%60
+        return "\(hours) hours and \(minutes) minutes"
+    }
+}
+
 extension UIColor {
     class func skyBlue() -> UIColor {
         return UIColor(red: 0.51, green: 0.784, blue: 0.878, alpha: 1.0)

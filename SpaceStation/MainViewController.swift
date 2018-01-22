@@ -115,6 +115,7 @@ class MainViewController: UIViewController {
         return toolbar
     }()
     
+    let dateFormatter = DateFormatter()
     var locationManager = CLLocationManager()
     var locationCoordinate = CLLocationCoordinate2D()
     let cellID = "cell"
@@ -124,6 +125,8 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dateFormatter.setLocalizedDateFormatFromTemplate("HH:mm:ss")
+        
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
         locationManager.requestLocation()
@@ -159,7 +162,7 @@ class MainViewController: UIViewController {
                     let issTuple = self.disseminateJSON(data: jsonData)
                     self.issRequest = issTuple.request
                     self.issResponse = issTuple.response
-                    self.populateDataFields()
+                    self.populateRequestFields()
                 }
             })
         }
@@ -190,7 +193,7 @@ extension MainViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for:indexPath) as! ISSCell
-        cell.duration.text = String(issResponse[indexPath.row].duration)
+        cell.duration.text = issResponse[indexPath.row].duration.duration()
         cell.riseTime.text = String(issResponse[indexPath.row].risetime)
         return cell
     }
