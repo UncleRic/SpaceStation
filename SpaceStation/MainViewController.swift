@@ -91,6 +91,12 @@ class MainViewController: UIViewController {
         return label
     }()
     
+    let tableView: UITableView = {
+        let table = UITableView()
+        table.backgroundColor = UIColor.red
+        return table
+    }()
+    
     let toolBar:UIToolbar = {
         var toolbar = UIToolbar()
         var items = [UIBarButtonItem]()

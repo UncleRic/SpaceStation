@@ -93,6 +93,20 @@ extension MainViewController {
                            paddingBottom: 10,
                            paddingRight: 10, width: 200.0, height: 24)
         
+        // UITableView:
+        view.addSubview(tableView)
+        tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                           bottom: view.safeAreaLayoutGuide.bottomAnchor,
+                           left: view.safeAreaLayoutGuide.leftAnchor,
+                           right: view.safeAreaLayoutGuide.rightAnchor,
+                           centerYAnchor: nil,
+                           centerXAnchor: nil,
+                           paddingTop: requestTopPadding + 150,
+                           paddingLeft: requestLeftPadding ,
+                           paddingBottom: 60,
+                           paddingRight: 0, width: 0.0, height: 0.0)
+        
+       
         // Toolbar Label:
         view.addSubview(toolBar)
         toolBar.anchor(top: nil,
