@@ -31,6 +31,7 @@ class MainViewController: UIViewController {
     var issRequest = [String:Double]()
     var issResponse = [Response]()
     
+    // Request Label:
     let requestLabel:UILabel = {
         var label = UILabel()
         label.text = "Request:"
@@ -40,6 +41,7 @@ class MainViewController: UIViewController {
         return label
     }()
     
+    // Altitude:
     let altitudeLabel:UILabel = {
         var label = UILabel()
         label.text = "Altitude:"
@@ -49,6 +51,7 @@ class MainViewController: UIViewController {
         return label
     }()
     
+    // Date & Time:
     let dateTimeLabel:UILabel = {
         var label = UILabel()
         label.text = "Date & Time:"
@@ -58,6 +61,7 @@ class MainViewController: UIViewController {
         return label
     }()
     
+    // Latitude:
     let latitudeLabel:UILabel = {
         var label = UILabel()
         label.text = "Latitude:"
@@ -67,15 +71,17 @@ class MainViewController: UIViewController {
         return label
     }()
     
+    // Longitude:
     let longitudeLabel:UILabel = {
         var label = UILabel()
-        label.text = "Latitude:"
+        label.text = "Longitude:"
         label.textColor = UIColor.purple
         label.font = UIFont(name: palatinoFont, size: 14.0)
         label.textAlignment = .left
         return label
     }()
     
+    // Passes:
     let passesLabel:UILabel = {
         var label = UILabel()
         label.text = "Passes:"
@@ -137,6 +143,7 @@ class MainViewController: UIViewController {
                     let issTuple = self.disseminateJSON(data: jsonData)
                     self.issRequest = issTuple.request
                     self.issResponse = issTuple.response
+                    self.populateDataFields()
                 }
             })
         }
