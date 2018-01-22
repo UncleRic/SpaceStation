@@ -26,7 +26,7 @@ struct SatResource {
 }
 
 class MainViewController: UIViewController {
-    let gSpinner = UIActivityIndicatorView(activityIndicatorStyle: .white)
+    let gSpinner = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
     var issTuple = (request:[String:Double], response:[Response]).self
     var issRequest = [String:Double]()
     var issResponse = [Response]()
