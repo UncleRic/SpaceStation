@@ -112,6 +112,7 @@ class MainViewController: UIViewController {
     
     var locationManager = CLLocationManager()
     var locationCoordinate = CLLocationCoordinate2D()
+    let cellID = "cell"
     
     // -----------------------------------------------------------------------------------------------------
     // MARK: - UIViewController methods
@@ -123,6 +124,10 @@ class MainViewController: UIViewController {
         locationManager.requestLocation()
         self.title = "Space Station"
         buildUserInterface()
+        tableView.dataSource = self
+        tableView.rowHeight = 80.0
+        let myNib = UINib(nibName:"TableViewCell",bundle:nil)
+        tableView.register(myNib, forCellReuseIdentifier:cellID)
     }
     
     // -----------------------------------------------------------------------------------------------------
@@ -169,6 +174,20 @@ class MainViewController: UIViewController {
     }
 }
 
+// ===================================================================================================
+
+extension MainViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for:indexPath) as! ISSCell
+        // do something
+        return cell
+    }
+}
+    
 // ===================================================================================================
 
 extension MainViewController: CLLocationManagerDelegate {
