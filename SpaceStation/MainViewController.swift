@@ -176,25 +176,28 @@ class MainViewController: UIViewController {
     
     @objc func toolbarHandler() {
         print("Toolbar item handler.")
+        tableView.reloadData()
     }
 }
 
 // ===================================================================================================
+// MARK: -
 
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return issResponse.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for:indexPath) as! ISSCell
-        cell.duration.text = "Duration"
-        cell.riseTime.text = "Rise Time"
+        cell.duration.text = String(issResponse[indexPath.row].duration)
+        cell.riseTime.text = String(issResponse[indexPath.row].risetime)
         return cell
     }
 }
     
 // ===================================================================================================
+// MARK: -
 
 extension MainViewController: CLLocationManagerDelegate {
     
