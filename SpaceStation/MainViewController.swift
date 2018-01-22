@@ -49,7 +49,7 @@ class MainViewController: UIViewController {
         return label
     }()
     
-    let datetimeLabel:UILabel = {
+    let dateTimeLabel:UILabel = {
         var label = UILabel()
         label.text = "Date & Time:"
         label.textColor = UIColor.purple
@@ -67,7 +67,7 @@ class MainViewController: UIViewController {
         return label
     }()
     
-    let longitude:UILabel = {
+    let longitudeLabel:UILabel = {
         var label = UILabel()
         label.text = "Latitude:"
         label.textColor = UIColor.purple
@@ -78,7 +78,7 @@ class MainViewController: UIViewController {
     
     let passesLabel:UILabel = {
         var label = UILabel()
-        label.text = "Longitude:"
+        label.text = "Passes:"
         label.textColor = UIColor.purple
         label.font = UIFont(name: palatinoFont, size: 14.0)
         label.textAlignment = .left
